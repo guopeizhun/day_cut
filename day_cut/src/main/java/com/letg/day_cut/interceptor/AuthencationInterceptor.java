@@ -1,5 +1,6 @@
 package com.letg.day_cut.interceptor;
 
+import com.letg.day_cut.constant.UserConstant;
 import com.letg.day_cut.model.Result;
 import com.letg.day_cut.util.JwtUtil;
 import com.letg.day_cut.util.ResponseUtil;
@@ -9,9 +10,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.letg.day_cut.util.JwtUtil.UID;
+
 public class AuthencationInterceptor extends HandlerInterceptorAdapter {
 
-    public static ThreadLocal<String> authThreadLocal = new ThreadLocal<>();
+
     private static final String acceptIp = "http://localhost:8081";
     private final String unNeedAuthArr[] = {
             "/v1/comment",
@@ -43,14 +46,17 @@ public class AuthencationInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
+        //保存用户id
+//        UserConstant.uid.set(2);
+        UserConstant.uid.set((Integer) JwtUtil.getInfo(token, UID));
+
 //        redisUtil.setVal(RedisConstant.TEMP_TOKEN_KEY, token);
-        authThreadLocal.set(token);
+
         return super.preHandle(request, response, handler);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-//        redisUtil.delKey(RedisConstant.TEMP_TOKEN_KEY);
-        authThreadLocal.remove();
+        UserConstant.uid.remove();
     }
 }
