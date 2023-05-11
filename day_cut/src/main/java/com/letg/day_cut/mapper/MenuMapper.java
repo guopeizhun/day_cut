@@ -2,6 +2,7 @@ package com.letg.day_cut.mapper;
 
 import com.letg.day_cut.model.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author Administrator
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-05-11 09:21:55
 * @Entity com.letg.day_cut.model.Menu
 */
+@Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
 
 }

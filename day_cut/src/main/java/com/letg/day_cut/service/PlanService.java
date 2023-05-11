@@ -2,6 +2,8 @@ package com.letg.day_cut.service;
 
 import com.letg.day_cut.model.Plan;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.letg.day_cut.model.Result;
+import com.letg.day_cut.model.vo.PlanVO;
 
 /**
 * @author 86158
@@ -10,4 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PlanService extends IService<Plan> {
 
+    Result formulate(PlanVO planVO);
 }

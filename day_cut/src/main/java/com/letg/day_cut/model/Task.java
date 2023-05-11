@@ -18,7 +18,7 @@ public class Task implements Serializable {
     /**
      * 主键
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -44,7 +44,7 @@ public class Task implements Serializable {
     /**
      * 排序
      */
-    private Integer order;
+    private Integer orderNumber;
 
     /**
      * 任务id
@@ -71,7 +71,7 @@ public class Task implements Serializable {
             && (this.getTimeEnd() == null ? other.getTimeEnd() == null : this.getTimeEnd().equals(other.getTimeEnd()))
             && (this.getDetail() == null ? other.getDetail() == null : this.getDetail().equals(other.getDetail()))
             && (this.getIsCompleted() == null ? other.getIsCompleted() == null : this.getIsCompleted().equals(other.getIsCompleted()))
-            && (this.getOrder() == null ? other.getOrder() == null : this.getOrder().equals(other.getOrder()))
+            && (this.getOrderNumber() == null ? other.getOrderNumber() == null : this.getOrderNumber().equals(other.getOrderNumber()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()));
     }
 
@@ -84,7 +84,7 @@ public class Task implements Serializable {
         result = prime * result + ((getTimeEnd() == null) ? 0 : getTimeEnd().hashCode());
         result = prime * result + ((getDetail() == null) ? 0 : getDetail().hashCode());
         result = prime * result + ((getIsCompleted() == null) ? 0 : getIsCompleted().hashCode());
-        result = prime * result + ((getOrder() == null) ? 0 : getOrder().hashCode());
+        result = prime * result + ((getOrderNumber() == null) ? 0 : getOrderNumber().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
         return result;
     }
@@ -100,7 +100,7 @@ public class Task implements Serializable {
         sb.append(", timeEnd=").append(timeEnd);
         sb.append(", detail=").append(detail);
         sb.append(", isCompleted=").append(isCompleted);
-        sb.append(", order=").append(order);
+        sb.append(", orderNumber=").append(orderNumber);
         sb.append(", pid=").append(pid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

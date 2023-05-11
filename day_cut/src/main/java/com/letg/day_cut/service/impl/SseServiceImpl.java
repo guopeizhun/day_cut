@@ -36,22 +36,22 @@ public class SseServiceImpl implements SseService {
 
     }
 
-   @Async
-    @Scheduled(fixedDelay = 1000L)
-    public void pushDataToClient() {
-        synchronized (emitters) {
-            for (SseEmitter emitter : emitters) {
-                try {
-                    emitter.send(new SseEmitter
-                            .SseEventBuilder()
-                            .data("SSE Example Data")
-                            .id("1")
-                            .event("message")
-                            .build());
-                } catch (IOException e) {
-                    emitters.remove(emitter);
-                }
-            }
-        }
-    }
+//   @Async
+//    @Scheduled(fixedDelay = 1000L)
+//    public void pushDataToClient() {
+//        synchronized (emitters) {
+//            for (SseEmitter emitter : emitters) {
+//                try {
+//                    emitter.send(new SseEmitter
+//                            .SseEventBuilder()
+//                            .data("SSE Example Data")
+//                            .id("1")
+//                            .event("message")
+//                            .build());
+//                } catch (IOException e) {
+//                    emitters.remove(emitter);
+//                }
+//            }
+//        }
+//    }
 }
