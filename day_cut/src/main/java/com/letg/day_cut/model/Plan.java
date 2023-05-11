@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.letg.day_cut.annotion.AutoFilled;
+import com.letg.day_cut.constant.UserConstant;
 import lombok.Data;
 
 /**
@@ -32,6 +35,7 @@ public class Plan implements Serializable {
     /**
      * 创建者id
      */
+
     private Integer uid;
 
     /**

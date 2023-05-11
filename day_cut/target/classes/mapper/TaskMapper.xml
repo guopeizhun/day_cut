@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.letg.day_cut.mapper.TaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.letg.day_cut.model.Task">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="timeStart" column="time_start" jdbcType="TIME"/>
+            <result property="timeEnd" column="time_end" jdbcType="TIME"/>
+            <result property="detail" column="detail" jdbcType="VARCHAR"/>
+            <result property="isCompleted" column="is_completed" jdbcType="TINYINT"/>
+            <result property="orderNumber" column="order_number" jdbcType="INTEGER"/>
+            <result property="pid" column="pid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,time_start,time_end,
+        detail,is_completed,order,
+        pid
+    </sql>
+    <insert id="batchInsert" parameterType="list">
+        insert into t_task(time_start,time_end,detail,order_number,pid) values
+        <foreach collection="list" item="o" separator=",">
+            (#{o.timeStart},#{o.timeEnd},#{o.detail},#{o.orderNumber},#{o.pid})
+        </foreach>
+    </insert>
+</mapper>

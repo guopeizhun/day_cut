@@ -1,5 +1,7 @@
 package com.letg.day_cut.model.vo;
 
+import com.letg.day_cut.annotion.AutoFilled;
+import com.letg.day_cut.constant.UserConstant;
 import com.letg.day_cut.model.Task;
 
 import java.util.Date;
@@ -21,6 +23,7 @@ public class PlanVO {
     /**
      * 创建者id
      */
+    @AutoFilled(clazz = UserConstant.class,filedName = "uid")
     private Integer uid;
 
     /**

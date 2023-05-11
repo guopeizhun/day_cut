@@ -18,6 +18,8 @@ public class JwtUtil {
     public static final long EXPIRE = 1000 * 60 * 60 * 24; //token过期时间
     public static final String APP_SECRET = "the letg is myfirst blob"; //秘钥，加盐
 
+    public static String UID = "uid";
+
     //	@param id 当前用户ID
     //	@param issuer 该JWT的签发者，是否使用是可选的
     //	@param subject 该JWT所面向的用户，是否使用是可选的
@@ -104,6 +106,14 @@ public class JwtUtil {
     public static Claims parseJWT(String jwt) {
         Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwt).getBody();
         return claims;
+    }
+
+    /**
+     * 获取token存取的用户信息
+     * @return
+     */
+    public static Object getInfo(String jwt,String key){
+        return parseJWT(jwt).get(key).toString();
     }
 
 
