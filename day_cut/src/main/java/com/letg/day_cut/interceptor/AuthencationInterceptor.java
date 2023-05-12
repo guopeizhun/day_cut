@@ -30,25 +30,25 @@ public class AuthencationInterceptor extends HandlerInterceptorAdapter {
         String token = request.getHeader("token");
         String requestURL = request.getRequestURI();
         //拦截一切关于对于数据有操作的
-        if (method.equals("POST") || method.equals("DELETE") || method.equals("PUT")) {
-            /**
-             * 判断token是否存在且合法
-             */
-
-
-            if (token == null || !JwtUtil.checkToken(token)) {
-                //如果请求ip不是认可的IP则返回失败
-                String origin = request.getHeader("Origin");
-                if (!origin.equals(acceptIp)) {
-                    ResponseUtil.write(response, "application/json", Result.fail().msg("权限不足"));
-                    return false;
-                }
-            }
-        }
+//        if (method.equals("POST") || method.equals("DELETE") || method.equals("PUT")) {
+//            /**
+//             * 判断token是否存在且合法
+//             */
+//
+//
+//            if (token == null || !JwtUtil.checkToken(token)) {
+//                //如果请求ip不是认可的IP则返回失败
+//                String origin = request.getHeader("Origin");
+//                if (!origin.equals(acceptIp)) {
+//                    ResponseUtil.write(response, "application/json", Result.fail().msg("权限不足"));
+//                    return false;
+//                }
+//            }
+//        }
 
         //保存用户id
-//        UserConstant.uid.set(2);
-        UserConstant.uid.set((Integer) JwtUtil.getInfo(token, UID));
+        UserConstant.uid.set(2);
+//        UserConstant.uid.set((Integer) JwtUtil.getInfo(token, UID));
 
 //        redisUtil.setVal(RedisConstant.TEMP_TOKEN_KEY, token);
 

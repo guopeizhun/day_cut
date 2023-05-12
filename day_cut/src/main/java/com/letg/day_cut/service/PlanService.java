@@ -13,4 +13,10 @@ import com.letg.day_cut.model.vo.PlanVO;
 public interface PlanService extends IService<Plan> {
 
     Result formulate(PlanVO planVO);
+
+    Result getCurrentPlan();
+
+    Result findPlan(Integer planId);
+
+    Result findPlanList();
 }

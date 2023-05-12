@@ -17,4 +17,11 @@
         id,name,desc,
         uid,create_time,update_time
     </sql>
+    <select id="selectCurrentPlan" resultType="com.letg.day_cut.model.Plan">
+        SELECT *
+        FROM t_plan
+        WHERE uid = (SELECT current_plan
+                     FROM t_user
+                     WHERE id = #{uid})
+    </select>
 </mapper>

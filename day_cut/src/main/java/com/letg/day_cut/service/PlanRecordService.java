@@ -2,6 +2,7 @@ package com.letg.day_cut.service;
 
 import com.letg.day_cut.model.PlanRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.letg.day_cut.model.Result;
 
 /**
 * @author 86158
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PlanRecordService extends IService<PlanRecord> {
 
+    Result getRecordByPlanId(Integer planId);
 }

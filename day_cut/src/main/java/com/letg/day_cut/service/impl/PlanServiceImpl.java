@@ -1,5 +1,6 @@
 package com.letg.day_cut.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.letg.day_cut.constant.UserConstant;
 import com.letg.day_cut.mapper.TaskMapper;
@@ -11,6 +12,7 @@ import com.letg.day_cut.service.PlanService;
 import com.letg.day_cut.mapper.PlanMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,6 +45,58 @@ public class PlanServiceImpl extends ServiceImpl<PlanMapper, Plan>
         baseMapper.insert(plan);
         return Result.ok();
     }
+
+    /**
+     * 获取当前计划
+     * @return
+     */
+    @Override
+    public Result getCurrentPlan() {
+        Integer uid = UserConstant.getUid();
+        Plan plan = baseMapper.selectCurrentPlan(uid);
+        if(null == plan){
+            return Result.ok();
+        }
+        Integer planId = plan.getId();
+        LambdaQueryWrapper<Task> wr = new LambdaQueryWrapper<>();
+        wr.eq(Task::getPid,planId);
+        List<Task> tasks = taskMapper.selectList(wr);
+        PlanVO planVO = new PlanVO();
+        BeanUtils.copyProperties(plan,planVO);
+        planVO.setTaskList(tasks);
+        return Result.ok().data(planVO);
+    }
+
+    @Override
+    public Result findPlan(Integer planId) {
+        LambdaQueryWrapper<Plan> pwr = new LambdaQueryWrapper<>();
+        pwr.eq(Plan::getId,planId);
+        //当前用户
+        pwr.eq(Plan::getUid,UserConstant.getUid());
+        Plan plan = baseMapper.selectOne(pwr);
+
+        if(null == plan){
+            return Result.ok();
+        }
+        LambdaQueryWrapper<Task> twr = new LambdaQueryWrapper<>();
+        twr.eq(Task::getPid,planId);
+        List<Task> tasks = taskMapper.selectList(twr);
+        PlanVO planVO = new PlanVO();
+        BeanUtils.copyProperties(plan,planVO);
+        planVO.setTaskList(tasks);
+        return Result.ok().data(planVO);
+    }
+
+    @Override
+    public Result findPlanList() {
+        Integer uid = UserConstant.getUid();
+        LambdaQueryWrapper<Plan> wr = new LambdaQueryWrapper<>();
+        wr.eq(Plan::getUid,uid);
+        List<Plan> planList = baseMapper.selectList(wr);
+        return Result.ok().data(planList);
+    }
+
+
 }
 
 

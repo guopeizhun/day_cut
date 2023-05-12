@@ -1,21 +1,23 @@
 package com.letg.day_cut.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 计划执行记录
+ *
  * @TableName t_plan_record
  */
-@TableName(value ="t_plan_record")
+@TableName(value = "t_plan_record")
 @Data
 public class PlanRecord implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -31,14 +33,22 @@ public class PlanRecord implements Serializable {
     private Integer userId;
 
     /**
-     * 执行增量时间
+     * 创建时间
      */
-    private Long additionTime;
+    @TableField(fill = FieldFill.INSERT)
+    private Date createTime;
 
     /**
      * 是否完成
      */
+
     private Integer isCompleted;
+
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -56,10 +66,10 @@ public class PlanRecord implements Serializable {
         }
         PlanRecord other = (PlanRecord) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getPlanId() == null ? other.getPlanId() == null : this.getPlanId().equals(other.getPlanId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getAdditionTime() == null ? other.getAdditionTime() == null : this.getAdditionTime().equals(other.getAdditionTime()))
-            && (this.getIsCompleted() == null ? other.getIsCompleted() == null : this.getIsCompleted().equals(other.getIsCompleted()));
+                && (this.getPlanId() == null ? other.getPlanId() == null : this.getPlanId().equals(other.getPlanId()))
+                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getIsCompleted() == null ? other.getIsCompleted() == null : this.getIsCompleted().equals(other.getIsCompleted()));
     }
 
     @Override
@@ -69,7 +79,7 @@ public class PlanRecord implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPlanId() == null) ? 0 : getPlanId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getAdditionTime() == null) ? 0 : getAdditionTime().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getIsCompleted() == null) ? 0 : getIsCompleted().hashCode());
         return result;
     }
@@ -83,10 +93,40 @@ public class PlanRecord implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", planId=").append(planId);
         sb.append(", userId=").append(userId);
-        sb.append(", additionTime=").append(additionTime);
+        sb.append(", CreateTime=").append(createTime);
+        sb.append(", UpdateTime=").append(updateTime);
         sb.append(", isCompleted=").append(isCompleted);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
+
+    public static enum RecordStatus {
+        UN_COMP(0, "未完成"), COMP(1, "完成"), COMP_CURRENT(3, "当日完成"),
+        UN_COMP_CURRENT(3, "当日未完成");
+        int code;
+        String msg;
+
+        RecordStatus(int code, String msg) {
+            this.code = code;
+            this.msg = msg;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public void setCode(int code) {
+            this.code = code;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+    }
 }
+

@@ -5,15 +5,17 @@
 <mapper namespace="com.letg.day_cut.mapper.PlanRecordMapper">
 
     <resultMap id="BaseResultMap" type="com.letg.day_cut.model.PlanRecord">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="planId" column="plan_id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="additionTime" column="addition_time" jdbcType="BIGINT"/>
-            <result property="isCompleted" column="is_completed" jdbcType="TINYINT"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="planId" column="plan_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="DATE"/>
+        <result property="updateTime" column="update_time" jdbcType="DATE"/>
+        <result property="isCompleted" column="is_completed" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,plan_id,user_id,
+        id
+        ,plan_id,user_id,
         addition_time,is_completed
     </sql>
 </mapper>

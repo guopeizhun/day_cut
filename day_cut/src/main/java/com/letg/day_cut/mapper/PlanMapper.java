@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PlanMapper extends BaseMapper<Plan> {
 
+    Plan selectCurrentPlan(Integer uid);
 }
 
 
