@@ -2,6 +2,8 @@ package com.letg.day_cut.service;
 
 import com.letg.day_cut.model.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.letg.day_cut.model.Result;
+import com.letg.day_cut.model.vo.MenuVO;
 
 /**
 * @author Administrator
@@ -10,4 +12,15 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface MenuService extends IService<Menu> {
 
+    Result getMenuTree();
+
+    Result addMenu(MenuVO menuVO);
+
+
+
+    Result load(Integer menuId);
+
+    Result getChild(Integer menuId);
+
+    Result updateMenu(MenuVO menuVO);
 }

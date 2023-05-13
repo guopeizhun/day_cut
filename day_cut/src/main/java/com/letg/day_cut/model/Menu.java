@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 菜单表
@@ -55,7 +57,19 @@ public class Menu implements Serializable {
     private Integer isDeleted;
 
     @TableField(exist = false)
+    private List<Menu> childList = new ArrayList<>();
+
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+
+    public List<Menu> getChildList() {
+        return childList;
+    }
+
+    public void setChildList(List<Menu> childList) {
+        this.childList = childList;
+    }
 
     /**
      * 菜单id
