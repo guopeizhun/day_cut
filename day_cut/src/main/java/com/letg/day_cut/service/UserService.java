@@ -1,5 +1,6 @@
 package com.letg.day_cut.service;
 
+import com.letg.day_cut.model.Result;
 import com.letg.day_cut.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
+    Result getInfo();
 }

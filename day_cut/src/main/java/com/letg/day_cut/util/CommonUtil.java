@@ -28,7 +28,27 @@ public class CommonUtil {
         return calendar.getTime();
     }
 
+    /**
+     * 获取当年的最后一天
+     * @return
+     */
+    public static Date getYearLastDay(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
+        return calendar.getTime();
+    }
+
+    /**
+     * 获取当月第一天
+     * @return
+     */
+    public static Date getYearFirstDay(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR,1);
+        return calendar.getTime();
+    }
+
     public static void main(String[] args) {
-        System.out.println(getMonthLastDay());
+        System.out.println(getYearLastDay());
     }
 }

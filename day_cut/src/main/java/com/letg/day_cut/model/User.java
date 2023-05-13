@@ -37,6 +37,11 @@ public class User implements Serializable {
     private String password;
 
     /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 小程序用户id
      */
     private String openId;
@@ -122,4 +127,5 @@ public class User implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
 }

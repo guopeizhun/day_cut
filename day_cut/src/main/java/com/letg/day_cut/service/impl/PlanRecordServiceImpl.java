@@ -32,16 +32,37 @@ public class PlanRecordServiceImpl extends ServiceImpl<PlanRecordMapper, PlanRec
      */
     @Override
     public Result getRecordByPlanId(Integer planId) {
+        Date lastOfMonth = CommonUtil.getMonthLastDay();
+        Date firstOfMonth = CommonUtil.getMonthFirstDay();
+        Date firstOfYear = CommonUtil.getYearFirstDay();
+        Date lastOfYear = CommonUtil.getYearLastDay();
+
+        //完成情况
         LambdaQueryWrapper<PlanRecord> wr = new LambdaQueryWrapper<>();
         wr.eq(PlanRecord::getPlanId, planId);
-        Date lastDay = CommonUtil.getMonthLastDay();
-        Date firstDay = CommonUtil.getMonthFirstDay();
-        wr.ge(PlanRecord::getCreateTime, firstDay);
-        wr.le(PlanRecord::getCreateTime, lastDay);
+        wr.ge(PlanRecord::getCreateTime, firstOfMonth);
+        wr.le(PlanRecord::getCreateTime, lastOfMonth);
         wr.orderByAsc(PlanRecord::getCreateTime);
         List<PlanRecord> planRecordList = baseMapper.selectList(wr);
         List<Integer> compeletedStatusArr = getCompeletedStatusArr(planRecordList);
-        return Result.ok().data(compeletedStatusArr);
+        //查询一个月的总完成数
+        LambdaQueryWrapper<PlanRecord> pwr1 = new LambdaQueryWrapper<>();
+        pwr1.eq(PlanRecord::getIsCompleted,1);
+        pwr1.ge(PlanRecord::getCreateTime,firstOfMonth);
+        pwr1.le(PlanRecord::getCreateTime,lastOfMonth);
+        Long monthCount = baseMapper.selectCount(pwr1);
+        //查询一年的总完成数
+        LambdaQueryWrapper<PlanRecord> pwr2 = new LambdaQueryWrapper<>();
+        pwr2.eq(PlanRecord::getIsCompleted,1);
+        pwr2.ge(PlanRecord::getCreateTime, firstOfYear);
+        pwr2.le(PlanRecord::getCreateTime,lastOfYear);
+        Long yearCount = baseMapper.selectCount(pwr2);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("monthCount",monthCount);
+        map.put("yearCount",yearCount);
+        map.put("compeletedStatusArr",compeletedStatusArr);
+        return Result.ok().data(map);
     }
 
     /**
@@ -50,10 +71,14 @@ public class PlanRecordServiceImpl extends ServiceImpl<PlanRecordMapper, PlanRec
      * @param list
      * @return
      */
-    List<Integer> getCompeletedStatusArr(List<PlanRecord> list) {
+    private List<Integer> getCompeletedStatusArr(List<PlanRecord> list) {
         int size = CommonUtil.getMonthLastDay().getDate();
         int nowDay = new Date().getDate();
-        //获取有记录的日期
+        /**
+         * map
+         * key->日期
+         * val->完成情况
+         */
         Map<Integer, Integer> map = list.stream()
                 .collect(Collectors.toMap(
                         item -> item.getCreateTime().getDate(),
@@ -81,8 +106,6 @@ public class PlanRecordServiceImpl extends ServiceImpl<PlanRecordMapper, PlanRec
         }
         return arr;
     }
-
-
 }
 
 
