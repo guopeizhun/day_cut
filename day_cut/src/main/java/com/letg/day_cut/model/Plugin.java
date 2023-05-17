@@ -35,10 +35,19 @@ public class Plugin implements Serializable {
      */
     private Integer fontType;
 
+    /**
+     * 用户id
+     */
+    private Integer uid;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    @Override
+
+
+
+
+        @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;
@@ -53,7 +62,8 @@ public class Plugin implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getSubscribe() == null ? other.getSubscribe() == null : this.getSubscribe().equals(other.getSubscribe()))
             && (this.getStyleType() == null ? other.getStyleType() == null : this.getStyleType().equals(other.getStyleType()))
-            && (this.getFontType() == null ? other.getFontType() == null : this.getFontType().equals(other.getFontType()));
+            && (this.getFontType() == null ? other.getFontType() == null : this.getFontType().equals(other.getFontType()))
+            && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()));
     }
 
     @Override
@@ -64,6 +74,7 @@ public class Plugin implements Serializable {
         result = prime * result + ((getSubscribe() == null) ? 0 : getSubscribe().hashCode());
         result = prime * result + ((getStyleType() == null) ? 0 : getStyleType().hashCode());
         result = prime * result + ((getFontType() == null) ? 0 : getFontType().hashCode());
+        result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
         return result;
     }
 
@@ -77,6 +88,7 @@ public class Plugin implements Serializable {
         sb.append(", subscribe=").append(subscribe);
         sb.append(", styleType=").append(styleType);
         sb.append(", fontType=").append(fontType);
+        sb.append(", uid=").append(uid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

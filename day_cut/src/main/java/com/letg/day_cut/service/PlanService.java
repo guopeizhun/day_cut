@@ -19,4 +19,6 @@ public interface PlanService extends IService<Plan> {
     Result findPlan(Integer planId);
 
     Result findPlanList();
+
+    Result removePlan(Integer planId);
 }

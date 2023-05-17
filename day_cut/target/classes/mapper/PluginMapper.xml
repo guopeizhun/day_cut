@@ -9,10 +9,11 @@
             <result property="subscribe" column="subscribe" jdbcType="TINYINT"/>
             <result property="styleType" column="style_type" jdbcType="INTEGER"/>
             <result property="fontType" column="font_type" jdbcType="INTEGER"/>
+            <result property="uid" column="uid" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,subscribe,style_type,
-        font_type
+        font_type,uid
     </sql>
 </mapper>

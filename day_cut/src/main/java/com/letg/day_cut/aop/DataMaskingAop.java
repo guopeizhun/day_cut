@@ -64,6 +64,7 @@ public class DataMaskingAop {
         Object proceed = pjp.proceed();
         Result result = (Result) proceed;
         Object data = result.getData();
+        if(null == data) return proceed;
         Class<?> clazz = data.getClass();
         Field[] fields = clazz.getDeclaredFields();
         //查找@DataMasking注解,需要数据脱敏的字段

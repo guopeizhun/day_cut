@@ -36,13 +36,31 @@ public class PlanController {
         return planService.getCurrentPlan();
     }
 
+    /**
+     * 查找计划详情
+     * @param planId
+     * @return
+     */
     @GetMapping("/findPlan/{planId}")
     public Result findPlan(@PathVariable Integer planId){
         return planService.findPlan(planId);
     }
 
+
+    /**
+     * 获取计划列表
+     * @return
+     */
     @GetMapping("/findPlanList")
     public Result findPlanList(){
         return planService.findPlanList();
+    }
+
+    /**
+     * 删除计划
+     */
+    @DeleteMapping("/remove/{planId}")
+    public Result removePlan(@PathVariable Integer planId){
+        return planService.removePlan(planId);
     }
 }

@@ -3,8 +3,10 @@ package com.letg.day_cut.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.letg.day_cut.constant.UserConstant;
+import com.letg.day_cut.mapper.PlanRecordMapper;
 import com.letg.day_cut.mapper.TaskMapper;
 import com.letg.day_cut.model.Plan;
+import com.letg.day_cut.model.PlanRecord;
 import com.letg.day_cut.model.Result;
 import com.letg.day_cut.model.Task;
 import com.letg.day_cut.model.vo.PlanVO;
@@ -14,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +32,9 @@ public class PlanServiceImpl extends ServiceImpl<PlanMapper, Plan>
 
     @Autowired
     private TaskMapper taskMapper;
+
+    @Autowired
+    private PlanRecordMapper planRecordMapper;
 
 
     /**
@@ -67,6 +73,12 @@ public class PlanServiceImpl extends ServiceImpl<PlanMapper, Plan>
         return Result.ok().data(planVO);
     }
 
+
+    /**
+     * 获取计划详情
+     * @param planId
+     * @return
+     */
     @Override
     public Result findPlan(Integer planId) {
         LambdaQueryWrapper<Plan> pwr = new LambdaQueryWrapper<>();
@@ -87,6 +99,10 @@ public class PlanServiceImpl extends ServiceImpl<PlanMapper, Plan>
         return Result.ok().data(planVO);
     }
 
+    /**
+     * 查看计划列表
+     * @return
+     */
     @Override
     public Result findPlanList() {
         Integer uid = UserConstant.getUid();
@@ -94,6 +110,24 @@ public class PlanServiceImpl extends ServiceImpl<PlanMapper, Plan>
         wr.eq(Plan::getUid,uid);
         List<Plan> planList = baseMapper.selectList(wr);
         return Result.ok().data(planList);
+    }
+
+    /**
+     * 移除计划
+     * @param planId
+     * @return
+     */
+    @Override
+    @Transactional
+    public Result removePlan(Integer planId) {
+        baseMapper.deleteById(planId);
+        LambdaQueryWrapper<Task> wr1 = new LambdaQueryWrapper<>();
+        wr1.eq(Task::getPid,planId);
+        taskMapper.delete(wr1);
+        LambdaQueryWrapper<PlanRecord> wr2 = new LambdaQueryWrapper<>();
+        wr2.eq(PlanRecord::getPlanId,planId);
+        planRecordMapper.delete(wr2);
+        return Result.ok();
     }
 
 

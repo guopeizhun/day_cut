@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +16,11 @@ import java.util.Objects;
  * 菜单表
  * @TableName t_menu
  */
+
+@Data
 public class MenuVO implements Serializable {
+
+    private Integer id;
 
     /**
      * 菜单名称
@@ -43,72 +48,10 @@ public class MenuVO implements Serializable {
     private Integer isDeleted;
 
 
-    public Integer getIsDeleted() {
-        return isDeleted;
-    }
 
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 
     private static final long serialVersionUID = 1L;
 
-
-
-
-
-    public String getMenuName() {
-        return menuName;
-    }
-
-    /**
-     * 菜单名称
-     */
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
-    /**
-     * 菜单路由
-     */
-    public String getRoute() {
-        return route;
-    }
-
-    /**
-     * 菜单路由
-     */
-    public void setRoute(String route) {
-        this.route = route;
-    }
-
-    /**
-     * 菜单id
-     */
-    public Integer getPid() {
-        return pid;
-    }
-
-    /**
-     * 菜单id
-     */
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    /**
-     * 图标名称
-     */
-    public String getIcon() {
-        return icon;
-    }
-
-    /**
-     * 图标名称
-     */
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
 
 
     @Override
@@ -116,18 +59,19 @@ public class MenuVO implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuVO menuVO = (MenuVO) o;
-        return Objects.equals(menuName, menuVO.menuName) && Objects.equals(route, menuVO.route) && Objects.equals(pid, menuVO.pid) && Objects.equals(icon, menuVO.icon);
+        return Objects.equals(id, menuVO.id) && Objects.equals(menuName, menuVO.menuName) && Objects.equals(route, menuVO.route) && Objects.equals(pid, menuVO.pid) && Objects.equals(icon, menuVO.icon) && Objects.equals(isDeleted, menuVO.isDeleted);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(menuName, route, pid, icon);
+        return Objects.hash(id, menuName, route, pid, icon, isDeleted);
     }
 
     @Override
     public String toString() {
         return "MenuVO{" +
-                "menuName='" + menuName + '\'' +
+                "id=" + id +
+                ", menuName='" + menuName + '\'' +
                 ", route='" + route + '\'' +
                 ", pid=" + pid +
                 ", icon='" + icon + '\'' +
