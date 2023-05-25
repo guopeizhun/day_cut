@@ -41,6 +41,9 @@ public class Menu implements Serializable {
      */
     private String icon;
 
+
+    private String selectIcon;
+
     /**
      * 创建时间
      */
@@ -139,6 +142,12 @@ public class Menu implements Serializable {
      */
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+
+
+    public String getSelectIcon() {
+        return selectIcon;
     }
 
     /**

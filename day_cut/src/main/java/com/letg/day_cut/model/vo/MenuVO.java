@@ -42,6 +42,8 @@ public class MenuVO implements Serializable {
      */
     private String icon;
 
+
+    private String selectIcon;
     /**
      * 逻辑删除
      */

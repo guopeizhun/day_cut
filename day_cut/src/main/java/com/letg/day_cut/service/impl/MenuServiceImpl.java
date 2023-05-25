@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Administrator
@@ -35,15 +37,17 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu>
         List<Menu> menuList = baseMapper.selectList(wr);
 
         //找到根节点
-        Menu root = null;
         for (int i = 0; i < menuList.size(); i++) {
             if (menuList.get(i).getPid() == 0) {
-                root = menuList.get(i);
-                menuList.remove(i);
+               List<Menu> childList = getChildList(menuList,menuList.get(i).getId());
+               menuList.get(i).setChildList(childList);
             }
         }
-        buildMenuTree(menuList, root);
-        return Result.ok().data(root);
+        return Result.ok().data(menuList.stream().filter(item->item.getPid() == 0).collect(Collectors.toList()));
+    }
+
+    private List<Menu> getChildList(List<Menu> menuList, Integer id) {
+        return menuList.stream().filter(item->item.getPid() == id).collect(Collectors.toList());
     }
 
     /**

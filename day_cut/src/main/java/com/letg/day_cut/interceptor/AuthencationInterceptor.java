@@ -1,10 +1,13 @@
 package com.letg.day_cut.interceptor;
 
+import com.letg.day_cut.annotion.IgnoreAuth;
 import com.letg.day_cut.constant.UserConstant;
 import com.letg.day_cut.model.Result;
 import com.letg.day_cut.util.JwtUtil;
 import com.letg.day_cut.util.ResponseUtil;
+import org.apache.ibatis.javassist.util.proxy.MethodHandler;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +28,12 @@ public class AuthencationInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //如果不需要认证
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        if (handlerMethod.hasMethodAnnotation(IgnoreAuth.class)) {
+            return true;
+        }
+
         AntPathMatcher antPathMatcher = new AntPathMatcher();
         String method = request.getMethod();
         String token = request.getHeader("token");

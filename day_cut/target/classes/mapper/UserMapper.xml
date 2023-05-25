@@ -5,19 +5,21 @@
 <mapper namespace="com.letg.day_cut.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.letg.day_cut.model.User">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
-            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
-            <result property="password" column="password" jdbcType="VARCHAR"/>
-            <result property="openId" column="open_id" jdbcType="VARCHAR"/>
-            <result property="currentPlan" column="current_plan" jdbcType="INTEGER"/>
-            <result property="tel" column="tel" jdbcType="VARCHAR"/>
-            <result property="email" column="email" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+        <result property="currentPlan" column="current_plan" jdbcType="INTEGER"/>
+        <result property="tel" column="tel" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,nick_name,user_name,
+        id
+        ,nick_name,user_name,
         password,open_id,current_plan,
         tel,email,create_time
     </sql>

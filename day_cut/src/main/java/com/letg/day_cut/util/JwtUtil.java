@@ -108,6 +108,11 @@ public class JwtUtil {
         return claims;
     }
 
+    public void expire(String jwt){
+        Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwt).getBody();
+        claims.setExpiration(new Date(System.currentTimeMillis() + EXPIRE));
+    }
+
     /**
      * 获取token存取的用户信息
      * @return
