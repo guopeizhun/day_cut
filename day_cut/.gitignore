@@ -30,3 +30,5 @@ HELP.md
 LICENSE
 README.md
 src/test
+
+src/main/resources/application-pro.properties
