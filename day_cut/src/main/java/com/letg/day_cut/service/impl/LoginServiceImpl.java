@@ -43,6 +43,8 @@ public class LoginServiceImpl implements LoginService {
         }
 
         String token = JwtUtil.createJwtToken(user);
+
+
         return Result.ok().data(token);
     }
 }

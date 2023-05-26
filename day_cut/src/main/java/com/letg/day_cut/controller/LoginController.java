@@ -23,6 +23,6 @@ public class LoginController {
      */
     @PostMapping("/common")
     public Result common(@RequestBody CommonLoginVO loginVO){
-
+        return loginService.common(loginVO);
     }
 }
