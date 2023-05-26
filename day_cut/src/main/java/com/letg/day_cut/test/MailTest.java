@@ -103,7 +103,7 @@ public class MailTest {
     @Test
     public void testMailUtil() throws MessagingException {
         String subject = "忘记密码";
-        String to = "512038254@qq.com";
+        String to = "2430666495@qq.com";
         List<File> fileList = new ArrayList<>();
 
         mailUtil.sendHtmlMsg(subject, SystemConstants.getMailMod("forgetAcount"),getParams(),to,fileList);

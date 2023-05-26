@@ -9,8 +9,10 @@ import com.letg.day_cut.service.LoginService;
 import com.letg.day_cut.service.UserService;
 import com.letg.day_cut.util.JwtUtil;
 import com.letg.day_cut.util.RedisCache;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -26,9 +28,12 @@ public class LoginServiceImpl implements LoginService {
         String username = loginVO.getUsername();
         String password = loginVO.getPassword();
         String verifyCode = loginVO.getVerifyCode();
-        String key = CacheConstants.CAPTCHA_CODE_KEY + username;
-        String actualCode = redisCache.getCacheObject(key);
+
+        String actualCode = redisCache.getCacheObject(CacheConstants.CAPTCHA_CODE_KEY+loginVO.getUuid());
         //图片验证码判断
+        if(StringUtils.isEmpty(actualCode)){
+            return Result.fail().msg("验证码失效，请重新获取");
+        }
         if (!actualCode.equals(verifyCode)) {
             return Result.fail().msg("验证码错误");
         }

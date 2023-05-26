@@ -8,4 +8,5 @@ public class CommonLoginVO {
     private String username;
     private String password;
     private String verifyCode;
+    private String uuid;
 }

@@ -19,6 +19,8 @@ public class JwtUtil {
     public static final String APP_SECRET = "the letg is myfirst blob"; //秘钥，加盐
 
     public static String UID = "uid";
+    public static String USERNAME = "username";
+    public static String NICKNAME = "nickname";
 
     //	@param id 当前用户ID
     //	@param issuer 该JWT的签发者，是否使用是可选的
@@ -37,7 +39,9 @@ public class JwtUtil {
                 .setIssuedAt(new Date())    //设置签证生效的时间
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))    //设置签证失效的时间
                 //自定义的信息，这里存储id和姓名信息
-                .claim("id", user.getId())  //设置token主体部分 ，存储用户信息
+                .claim(UID, user.getId())  //设置token主体部分 ，存储用户信息
+                .claim(USERNAME, user.getUserName())
+                .claim(NICKNAME, user.getNickName())
                 //下面是第三部分
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
                 .compact();
@@ -108,17 +112,18 @@ public class JwtUtil {
         return claims;
     }
 
-    public void expire(String jwt){
+    public static void expire(String jwt) {
         Claims claims = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwt).getBody();
         claims.setExpiration(new Date(System.currentTimeMillis() + EXPIRE));
     }
 
     /**
      * 获取token存取的用户信息
+     *
      * @return
      */
-    public static Object getInfo(String jwt,String key){
-        return parseJWT(jwt).get(key).toString();
+    public static Object getInfo(String jwt, String key) {
+        return parseJWT(jwt).get(key);
     }
 
 

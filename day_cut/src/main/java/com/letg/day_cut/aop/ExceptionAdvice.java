@@ -40,8 +40,9 @@ public class ExceptionAdvice {
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public void otherHandler(Exception e){
+    public void otherHandler(Exception e) throws Exception {
         Result result = Result.fail().msg("系统出现异常，请联系管理员");
         ResponseUtil.write(response, ContenTypeConstants.JSON,result);
+        throw  e;
     }
 }
