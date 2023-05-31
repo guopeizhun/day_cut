@@ -9,6 +9,7 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -86,7 +87,11 @@ public class DataMaskingAop {
         DataMasking annotation = field.getAnnotation(DataMasking.class);
         DataMasking.MaskingType maskingType = annotation.type();
         field.setAccessible(true);
+
+        if(null == field.get(data))return;
         String param = field.get(data).toString();
+        if(StringUtils.isEmpty(param)) return;
+
         Function<String, String> function = map.get(maskingType);
         if(null == function) return;
         String maskingData = function.apply(param);

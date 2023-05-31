@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         Long dayCount = getComingDay(createTime);
         userVO.setDayCount(dayCount);
 
-        return Result.ok().data(userVO);
+            return Result.ok().data(userVO);
     }
 
     private  Long getComingDay(Date createTime){

@@ -1,0 +1,41 @@
+package ${relativePackge}.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ${relativePackge}.model.Feedback;
+import ${relativePackge}.model.PageInfo;
+import ${relativePackge}.model.Result;
+import ${relativePackge}.service.FeedbackService;
+import ${relativePackge}.mapper.FeedbackMapper;
+import ${relativePackge}.util.Query;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+
+@Service
+public class ${modelName}ServiceImpl extends ServiceImpl<${modelName}Mapper,${modelName}>
+        implements ${modelName}Service {
+
+    @Override
+    public Result selectPage(Map<String, Object> params) {
+        Query<${modelName}Mapper,${modelName}> query = new Query<>(this, params);
+        PageInfo pageInfo = query.selectPage();
+        return Result.ok().data(pageInfo);
+    }
+
+    @Override
+    public Result selectOne(Map<String, Object> params) {
+        Query<${modelName}Mapper,${modelName}> query = new Query<>(this, params);
+       ${modelName} feedback = query.selectOne();
+        return Result.ok().data(feedback);
+    }
+
+    @Override
+    public Result listAll(Map<String, Object> params) {
+        Query<${modelName}Mapper,${modelName}> query = new Query<>(this, params);
+        List< ${modelName}> feedbacks = query.selectList();
+        return Result.ok().data(feedbacks);
+    }
+}
+#end

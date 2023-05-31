@@ -9,37 +9,37 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 反馈建议
+ * 反馈
  * @TableName t_feedback
  */
 @TableName(value ="t_feedback")
 @Data
 public class Feedback implements Serializable {
     /**
-     * 主键
+     * 
      */
     @TableId
     private Integer id;
 
     /**
-     * 反馈内容
+     * 
      */
     private String detail;
 
     /**
-     * 反馈用户id
+     * 
      */
     private Integer uid;
 
     /**
-     * 创建时间
+     * 
      */
     private Date createTime;
 
     /**
-     * 是否已读
+     * 
      */
-    private String isReaded;
+    private Integer isReaded;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

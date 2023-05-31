@@ -41,7 +41,7 @@ public class AuthencationInterceptor extends HandlerInterceptorAdapter {
 
         AntPathMatcher antPathMatcher = new AntPathMatcher();
         String method = request.getMethod();
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         String requestURL = request.getRequestURI();
         //拦截一切关于对于数据有操作的
         if (method.equals("POST") || method.equals("DELETE") || method.equals("PUT")) {

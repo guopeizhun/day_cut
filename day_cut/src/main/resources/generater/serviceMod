@@ -1,0 +1,18 @@
+package ${relativePackge}.service;
+
+import ${relativePackge}.model.${modelName};
+import com.baomidou.mybatisplus.extension.service.IService;
+import ${relativePackge}.model.Result;
+
+import java.util.Map;
+
+
+public interface ${modelName}Service extends IService<${modelName}> {
+
+    Result selectPage(Map<String, Object> params);
+
+    Result selectOne(Map<String, Object> params);
+
+    Result listAll(Map<String, Object> params);
+}
+#end
