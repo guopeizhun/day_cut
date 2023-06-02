@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.letg.day_cut.mapper.GenerateMapper">
+
+
+    <resultMap id="descMap" type="map">
+        <result  column="Field" jdbcType="VARCHAR"></result>
+        <result  column="Type" jdbcType="VARCHAR"></result>
+        <result  column="Key" jdbcType="VARCHAR"></result>
+        <result  column="Null" jdbcType="VARCHAR"></result>
+        <result  column="Default" jdbcType="VARCHAR"></result>
+        <result   column="Extra" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,menu_name,route,
+        pid,icon,create_time,
+        update_time,is_deleted
+    </sql>
+    <select id="showTables" resultType="map">
+        select *
+        from information_schema.TABLES
+        where TABLE_SCHEMA=(select database())
+
+        <if test="tName != null and tName != ''">
+            and TABLE_NAME LIKE concat('%',#{tName},'%')
+        </if>
+    </select>
+    <select id="descTable" resultType="map">
+        select *
+        from information_schema.COLUMNS
+        where TABLE_SCHEMA = (select database())
+          and TABLE_NAME = #{tName}
+    </select>
+
+
+</mapper>

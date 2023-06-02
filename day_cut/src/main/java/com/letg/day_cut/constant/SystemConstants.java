@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Objects;
 
 public class SystemConstants {
+
+    public static String localIp;
+
     /**
      * 邮件模板集合
      */
