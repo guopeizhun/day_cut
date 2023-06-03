@@ -1,10 +1,10 @@
-package com.letg.day_cut.util;
+package ${relativePackge}.util;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.letg.day_cut.model.PageInfo;
+import ${relativePackge}.model.PageInfo;
 import org.springframework.util.CollectionUtils;
 
 
@@ -50,6 +50,7 @@ public class Query<M extends BaseMapper<O>, O> {
     }
 
     private void removeExcludeParams(Map<String, Object> params) {
+    //你好
         params.remove(PAGE);
         params.remove(SIZE);
         params.remove(ORDERBY);
@@ -94,3 +95,4 @@ public class Query<M extends BaseMapper<O>, O> {
         return wr;
     }
 }
+#end

@@ -1,14 +1,20 @@
-package com.letg.day_cut.controller;
+package  ${relativePackge}.controller;
 
-import com.letg.day_cut.model.Result;
-import com.letg.day_cut.service.${modelName}Service;
+import  ${relativePackge}.model.Result;
+import  ${relativePackge}.service.${modelName}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 
+
+/**
+ * 自定义生成${modelName}Controller
+ * 创建时间:${createTime}
+ */
 @RestController
+@RequestMapping("/${api}")
 public class ${modelName}Controller {
 
 

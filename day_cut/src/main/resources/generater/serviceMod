@@ -7,6 +7,10 @@ import ${relativePackge}.model.Result;
 import java.util.Map;
 
 
+/**
+ * 自定义生成${modelName}Service
+ * 创建时间:${createTime}
+ */
 public interface ${modelName}Service extends IService<${modelName}> {
 
     Result selectPage(Map<String, Object> params);

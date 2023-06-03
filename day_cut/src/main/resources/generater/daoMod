@@ -1,0 +1,16 @@
+package ${relativePackge}.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import ${relativePackge}.model.${modelName};
+import org.apache.ibatis.annotations.Mapper;
+
+
+/**
+ * 自定义生成${modelName}Mapper
+ * 创建时间:${createTime}
+ */
+@Mapper
+public interface ${modelName}Mapper extends BaseMapper<${modelName}> {
+
+}
+#end

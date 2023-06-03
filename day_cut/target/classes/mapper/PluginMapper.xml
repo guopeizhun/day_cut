@@ -5,15 +5,13 @@
 <mapper namespace="com.letg.day_cut.mapper.PluginMapper">
 
     <resultMap id="BaseResultMap" type="com.letg.day_cut.model.Plugin">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="subscribe" column="subscribe" jdbcType="TINYINT"/>
-            <result property="styleType" column="style_type" jdbcType="INTEGER"/>
-            <result property="fontType" column="font_type" jdbcType="INTEGER"/>
-            <result property="uid" column="uid" jdbcType="INTEGER"/>
+            <result property="subscribe" column="subscribe"/>
+            <result property="styleType" column="style_type"/>
+            <result property="id" column="id"/>
+            <result property="fontType" column="font_type"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,subscribe,style_type,
-        font_type,uid
+       ${baseColumn}
     </sql>
 </mapper>
