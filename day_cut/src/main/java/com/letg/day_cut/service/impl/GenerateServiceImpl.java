@@ -42,29 +42,31 @@ public class GenerateServiceImpl implements GenerateService {
      */
     @Override
     public Result generateCode(GenerateCodeVO vo) {
-        List<Object> params = new ArrayList<>();
-        List<Map> data = (List<Map>) descTable(vo.getTableName()).getData();
-        ArrayList<Map> list = new ArrayList<>();
-        for (int i = data.size() - 1; i >= 0; i--) {
-            Map map = data.get(i);
+        for (String tableName : vo.getTablesName()) {
+            List<Object> params = new ArrayList<>();
+            List<Map> data = (List<Map>) descTable(tableName).getData();
+            ArrayList<Map> list = new ArrayList<>();
+            for (int i = data.size() - 1; i >= 0; i--) {
+                Map map = data.get(i);
 
-            HashMap<String, Object> m = new HashMap<>();
-            m.put("COLUMN_NAME", map.get("COLUMN_NAME").toString());
-            m.put("COLUMN_TYPE", map.get("DATA_TYPE").toString());
-            m.put("COLUMN_COMMENT", map.get("COLUMN_COMMENT").toString());
-            m.put("COLUMN_KEY", StringUtils.isEmpty(map.get("COLUMN_KEY")));
-            list.add(m);
+                HashMap<String, Object> m = new HashMap<>();
+                m.put("COLUMN_NAME", map.get("COLUMN_NAME").toString());
+                m.put("COLUMN_TYPE", map.get("DATA_TYPE").toString());
+                m.put("COLUMN_COMMENT", map.get("COLUMN_COMMENT").toString());
+                m.put("COLUMN_KEY", StringUtils.isEmpty(map.get("COLUMN_KEY")));
+                list.add(m);
+            }
+            params.add(list);
+            params.add(getModelName(tableName, vo.getTablePrefix()));
+            params.add(vo.getPackgeName());
+            params.add(vo.isHasController());
+            params.add(vo.isHasService());
+            params.add(vo.isHasServiceImpl());
+            params.add(vo.isHasModel());
+            params.add(vo.isHasMapper());
+            params.add(tableName);
+            CodeGenerator.generate(params);
         }
-        params.add(list);
-        params.add(getModelName(vo.getTableName(), vo.getTablePrefix()));
-        params.add(vo.getPackgeName());
-        params.add(vo.isHasController());
-        params.add(vo.isHasService());
-        params.add(vo.isHasServiceImpl());
-        params.add(vo.isHasModel());
-        params.add(vo.isHasMapper());
-        params.add(vo.getTableName());
-        CodeGenerator.generate(params);
         return Result.ok();
     }
 

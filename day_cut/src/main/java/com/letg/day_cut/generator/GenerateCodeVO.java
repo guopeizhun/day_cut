@@ -2,9 +2,11 @@ package com.letg.day_cut.generator;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class GenerateCodeVO {
-    private String tableName;
+    private List<String> tablesName;
     private String packgeName;
     private String tablePrefix;
     private boolean hasController;
